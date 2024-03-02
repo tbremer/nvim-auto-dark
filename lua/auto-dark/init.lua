@@ -1,4 +1,3 @@
-local min_version = 'nvim-0.10.0'
 -- eventually get the system
 local sys = 'macos'
 -- different commands for different systems as arrays
@@ -11,12 +10,6 @@ local cmd = {
 local last_light
 -- this could be an option maybe
 local timeout = 1000
-
--- check version, if not nightly print an error and exit
-if vim.fn.has(min_version) == 0 then
-  print('not supported')
-  return;
-end
 
 -- query the output to determine if we are in darkmode
 local is_dark = function(output, sys)
