@@ -25,7 +25,7 @@ local is_dark = function(output, sys)
     return false
   end
 
-  print("unknown system:", sys)
+  vim.api.nvim_err_writeln(("unknown system: " .. sys)
 end
 
 -- set the background if it has changed, return early otherwise
