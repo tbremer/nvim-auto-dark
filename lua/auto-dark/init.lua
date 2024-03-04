@@ -1,8 +1,8 @@
 -- eventually get the system
-local sys = 'macos'
+local sys = "macos"
 -- different commands for different systems as arrays
 local cmd = {
-  macos = {'defaults', 'read', '-g', 'AppleInterfaceStyle'},
+  macos = { "defaults", "read", "-g", "AppleInterfaceStyle" },
   unix = {},
   windows = {},
 }
@@ -12,20 +12,20 @@ local last_light
 local timeout = 1000
 
 -- query the output to determine if we are in darkmode
-local is_dark = function(output, sys)
-  if sys == 'macos' then
+local is_dark = function(output, system)
+  if system == "macos" then
     return string.find(output, "Dark")
   end
 
-  if sys == 'unix' then
+  if system == "unix" then
     return false
   end
 
-  if sys == 'windows' then
+  if sys == "windows" then
     return false
   end
 
-  vim.api.nvim_err_writeln(("unknown system: " .. sys)
+  vim.api.nvim_err_writeln(("unknown system: " .. system))
 end
 
 -- set the background if it has changed, return early otherwise
@@ -36,14 +36,14 @@ local set_bg = function(light)
 
   last_light = light
 
-  local background=""
+  local background = ""
   if is_dark(light, sys) then
-    background="dark"
+    background = "dark"
   else
-    background="light"
+    background = "light"
   end
 
-  vim.api.nvim_set_option_value('background', background, {})
+  vim.api.nvim_set_option_value("background", background, {})
 end
 
 -- this is our loop, it runs the command specified by the system
@@ -59,10 +59,8 @@ local run = function()
   )
 end
 
-
 -- always run the command first to ensure we have the right theme
 run()
 
 -- start a timer
 vim.fn.timer_start(timeout, run, { ["repeat"] = -1 })
-
